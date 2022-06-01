@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getExchangeCourse } from './api/api';
 import './App.css';
-import { CurrencyCalculator } from './components/CurrencyCalculator/CurrencyCalculator';
+//import { CurrencyCalculator } from './components/CurrencyCalculator/CurrencyCalculator';
 import { ExchangeInfo } from './components/ExchangeInfo/ExchangeInfo';
 import { Currency } from './type/Currency';
 
@@ -40,7 +40,7 @@ export const App: React.FC = () => {
   }];
 
   //console.log(getRate("EUR", "USD", currencyWithUah));
-  console.table(currencyWithUah.map(el => [el.cc, 'UAH', getRate(el.cc, "UAH", currencyWithUah)]));
+  //console.table(currencyWithUah.map(el => [el.cc, 'UAH', getRate(el.cc, "UAH", currencyWithUah)]));
   
 
   return (
