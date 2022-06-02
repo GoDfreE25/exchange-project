@@ -1,0 +1,48 @@
+.exchange {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 25px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+
+  background-color: #7f7777;
+
+  &__title {
+    width: 600px;
+    margin: 0 auto;
+    padding: 25px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 15px;
+
+    background-color: #7f7777;
+      &-main {
+        font-size: 19px;
+      }
+
+      &-select {
+        color: rgb(9, 9, 9);
+        font-size: 19px;
+
+        background-color: transparent;
+
+        border-radius: 50px;
+        border: none;
+      }
+  }
+
+  &__list {
+    list-style: none;
+  }
+
+  &__item {
+    padding: 5px;
+    font-size: 19px;
+  }
+}

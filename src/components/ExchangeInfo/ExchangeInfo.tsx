@@ -1,12 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Currency } from '../../type/Currency';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import './ExchangeInfo.scss'
 
 type Props = {
   currency: Currency[];
@@ -14,35 +8,32 @@ type Props = {
 }
 
 export const ExchangeInfo: React.FC<Props> = ({ currency, getRate }) => {
-  
+  const [selectMainCurrency, setSelectMainCurrency] = useState('USD');
+
+  const changeHendlerMainCourse = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectMainCurrency(event.target.value);
+  };
   return (
     <>
-    <h2>For 1 USD You can get</h2>
-    <TableContainer component={Paper}>
-    <Table sx={{ maxWidth: 750 }} size="small" aria-label="a dense table">
-      <TableHead>
-        <TableRow>
-          <TableCell>Currency Name</TableCell>
-          <TableCell align="right">Current</TableCell>
-          <TableCell align="right">Exchange Rate</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {currency.map((current) => (
-          <TableRow
-            key={current.r030}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
-            <TableCell component="th" scope="row">
-              {current.txt}
-            </TableCell>
-            <TableCell align="right">{current.cc}</TableCell>
-            <TableCell align="right">{getRate('USD', current.cc, currency)}</TableCell>
-          </TableRow>
+    <div className="exchange">
+      <div className="exchange__title">
+        <span className='exchange__title-main'>{`For 1 ${selectMainCurrency} You can get:`}</span>
+        <select className="exchange__title-select" onChange={(changeHendlerMainCourse)}>
+            <option defaultValue="USD">USD</option>
+            {currency.map(current => (
+            <option key={current.r030} value={current.cc}>{current.cc}</option>
+          ))}
+        </select>
+      </div>
+      <ul className='exchange__list'> 
+        {currency.map(current => (
+          <li className='exchange__item' key={current.r030}>
+            {`1 ${selectMainCurrency} to ${current.cc} ${getRate(selectMainCurrency, current.cc, currency)} `}
+          </li>
         ))}
-      </TableBody>
-      </Table>
-    </TableContainer>
+      </ul>
+    </div>
+    
     </>
   );
 }
