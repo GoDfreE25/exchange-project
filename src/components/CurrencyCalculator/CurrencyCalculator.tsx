@@ -7,60 +7,60 @@ type Props = {
 }
 
 export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
-  const [selectMainCurrency, setSelectMainCurrency] = useState('USD');
-  const [selectSecondCurrency, setSelectSecondCurrency] = useState('UAH');
-  const [numberOFMainCurrency, setNumberOfMainCurrency] = useState(0);
-  const [numberOFSecondCurrency, setNumberOfSecondCurrency] = useState(0);
-
-  const changeHendlerMainCourse = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectMainCurrency(event.target.value);
-  };
-
-  const changeHendlerSecondCourse = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectSecondCurrency(event.target.value);
-  };
+  const [mainCurrency, setMainCurrency] = useState('');
 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNumberOfMainCurrency(Number(event.target.value));
-    setNumberOfSecondCurrency(getRate(selectMainCurrency, selectSecondCurrency, currency) * Number(numberOFMainCurrency));
+    setMainCurrency(event.target.value);
   };
 
-  console.log(getRate(selectMainCurrency, selectSecondCurrency, currency));
+  const parseInput = (input: string) => {
+    const [amount = '', base = '', _, current = ''] = input.split(' ');
+
+    const preperedAmount = Number(amount);
+    const preperedBase = base.split('').filter(str => str.toLocaleUpperCase() !== str.toLocaleLowerCase()).join('').toLocaleUpperCase();
+    const preperedCurrent = current.split('').filter(str => str.toLocaleUpperCase() !== str.toLocaleLowerCase()).join('').toLocaleUpperCase();
+
+    const isAmountValid = !isNaN(preperedAmount);
+    const baseValid = preperedBase.length === 3;
+    const currentValid = preperedCurrent.length === 3;
+    const preperedInput = `${preperedAmount} ${preperedBase} in ${preperedCurrent}`;
+
+    let result;
+    try {
+      const exchangeResult = getRate(preperedBase, preperedCurrent, currency) * preperedAmount;
+      result = {
+        isValid: baseValid && currentValid && isAmountValid,
+        preperedInput,
+        exchangeResult,
+      }
+    } catch {
+      return {
+        isValid: false,
+        preperedInput,
+        exchangeResult: 0,
+      }
+    }
+
+    return result;
+  }
+
+  const userInput = parseInput(mainCurrency);
 
   return (
     <>
     <div className="control">
       <input
-        type="number"
-        value={numberOFMainCurrency}
+        type="text"
+        value={mainCurrency}
         onChange={handleChange}
         id="search-query"
         className="input"
         placeholder="Type the Currency Amount"
       />
-       <input
-        type="number"
-        value={numberOFSecondCurrency}
-        onChange={handleChange}
-        id="search-query"
-        className="input"
-        placeholder="Type the Currency Amount"
-      />
-      <select className="App__user-selector" onChange={(changeHendlerMainCourse)}>
-        <option defaultValue="USD">USD</option>
-        {currency.map(current => (
-        <option key={current.r030} value={current.cc}>{current.cc}</option>
-      ))}
-      </select>
-      <select className="App__user-selector" onChange={(changeHendlerSecondCourse)}>
-        <option defaultValue="UAH">UAH</option>
-        {currency.map(current => (
-        <option key={current.r030} value={current.cc}>{current.cc}</option>
-      ))}
-      </select>
+      <h2>{isFinite(userInput.exchangeResult) ? userInput.exchangeResult : ''}</h2>
+      <h3>{userInput.isValid && 'Put wrong state'}</h3>
   </div>
-     
     </>
   );
 }

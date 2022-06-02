@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getExchangeCourse } from './api/api';
-import './App.css';
-//import { CurrencyCalculator } from './components/CurrencyCalculator/CurrencyCalculator';
-import { ExchangeInfo } from './components/ExchangeInfo/ExchangeInfo';
+import './App.scss';
+import { CurrencyCalculator } from './components/CurrencyCalculator/CurrencyCalculator';
+//import { ExchangeInfo } from './components/ExchangeInfo/ExchangeInfo';
 import { Currency } from './type/Currency';
 
 
@@ -45,14 +45,14 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-     {/* <CurrencyCalculator 
-      currency={currencyWithUah}
-      getRate={getRate}
-    /> */}
-    <ExchangeInfo
+     <CurrencyCalculator 
       currency={currencyWithUah}
       getRate={getRate}
     />
+    {/* <ExchangeInfo
+      currency={currencyWithUah}
+      getRate={getRate}
+    /> */}
     </div>
   );
 }
