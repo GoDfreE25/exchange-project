@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Currency } from '../../type/Currency';
+import './CurrencyCalculator.scss';
 
 type Props = {
   currency: Currency[];
@@ -8,10 +9,12 @@ type Props = {
 
 export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
   const [mainCurrency, setMainCurrency] = useState('');
+  const [errorQuery, setErrorQuery] = useState(false);
 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMainCurrency(event.target.value);
+    setErrorQuery(!errorQuery)
   };
 
   const parseInput = (input: string) => {
@@ -21,22 +24,17 @@ export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
     const preperedBase = base.split('').filter(str => str.toLocaleUpperCase() !== str.toLocaleLowerCase()).join('').toLocaleUpperCase();
     const preperedCurrent = current.split('').filter(str => str.toLocaleUpperCase() !== str.toLocaleLowerCase()).join('').toLocaleUpperCase();
 
-    const isAmountValid = !isNaN(preperedAmount);
-    const baseValid = preperedBase.length === 3;
-    const currentValid = preperedCurrent.length === 3;
     const preperedInput = `${preperedAmount} ${preperedBase} in ${preperedCurrent}`;
 
     let result;
     try {
       const exchangeResult = getRate(preperedBase, preperedCurrent, currency) * preperedAmount;
       result = {
-        isValid: baseValid && currentValid && isAmountValid,
         preperedInput,
         exchangeResult,
       }
     } catch {
       return {
-        isValid: false,
         preperedInput,
         exchangeResult: 0,
       }
@@ -46,20 +44,32 @@ export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
   }
 
   const userInput = parseInput(mainCurrency);
+  console.log(userInput);
+  
 
   return (
     <>
-    <div className="control">
-      <input
+    <div className="component">
+     <div className="calculator">
+       <h2 className='calculator__title'>
+       In this input you can enter the text as “15 usd in uah” and get the result
+       </h2>
+      {errorQuery && 
+        <span className='calculator__error'>{isFinite(userInput.exchangeResult) ? '' : 'Write correct text'}</span>
+      }
+       
+     <input
         type="text"
         value={mainCurrency}
         onChange={handleChange}
         id="search-query"
-        className="input"
-        placeholder="Type the Currency Amount"
+        className="calculator__input"
+        placeholder="Type the text"
       />
-      <h2>{isFinite(userInput.exchangeResult) ? userInput.exchangeResult : ''}</h2>
-      <h3>{userInput.isValid && 'Put wrong state'}</h3>
+        <span className='calculator__exchange'>
+          {isFinite(userInput.exchangeResult) ? `Result is: ${userInput.exchangeResult}` :''}
+        </span>
+     </div>
   </div>
     </>
   );
