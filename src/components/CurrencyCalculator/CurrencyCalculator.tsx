@@ -18,11 +18,11 @@ export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
   };
 
   const parseInput = (input: string) => {
-    const [amount = '', base = '', _, current = ''] = input.split(' ');
+    const [amount = '', baseValue = '', _, currentValue = ''] = input.split(' ');
 
     const preperedAmount = Number(amount);
-    const preperedBase = base.split('').filter(str => str.toLocaleUpperCase() !== str.toLocaleLowerCase()).join('').toLocaleUpperCase();
-    const preperedCurrent = current.split('').filter(str => str.toLocaleUpperCase() !== str.toLocaleLowerCase()).join('').toLocaleUpperCase();
+    const preperedBase = baseValue.split('').filter(str => str.toLocaleUpperCase() !== str.toLocaleLowerCase()).join('').toLocaleUpperCase();
+    const preperedCurrent = currentValue.split('').filter(str => str.toLocaleUpperCase() !== str.toLocaleLowerCase()).join('').toLocaleUpperCase();
 
     const preperedInput = `${preperedAmount} ${preperedBase} in ${preperedCurrent}`;
 
@@ -42,10 +42,7 @@ export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
 
     return result;
   }
-
   const userInput = parseInput(mainCurrency);
-  console.log(userInput);
-  
 
   return (
     <>
@@ -57,7 +54,6 @@ export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
       {errorQuery && 
         <span className='calculator__error'>{isFinite(userInput.exchangeResult) ? '' : 'Write correct text'}</span>
       }
-       
      <input
         type="text"
         value={mainCurrency}
@@ -66,9 +62,9 @@ export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
         className="calculator__input"
         placeholder="Type the text"
       />
-        <span className='calculator__exchange'>
-          {isFinite(userInput.exchangeResult) ? `Result is: ${userInput.exchangeResult}` :''}
-        </span>
+      <span className='calculator__exchange'>
+        {isFinite(userInput.exchangeResult) ? `Result is: ${userInput.exchangeResult}` :''}
+      </span>
      </div>
   </div>
     </>

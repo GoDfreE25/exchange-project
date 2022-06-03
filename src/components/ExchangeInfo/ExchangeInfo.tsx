@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Currency } from '../../type/Currency';
-import './ExchangeInfo.scss'
+import './ExchangeInfo.scss';
 
 type Props = {
   currency: Currency[];
@@ -17,7 +17,7 @@ export const ExchangeInfo: React.FC<Props> = ({ currency, getRate }) => {
     <>
     <div className="exchange">
       <div className="exchange__title">
-        <span className='exchange__title-main'>{`For 1 ${selectMainCurrency} You can get:`}</span>
+        <span className='exchange__title-main'>Select your currency:</span>
         <select className="exchange__title-select" onChange={(changeHendlerMainCourse)}>
             <option defaultValue="USD">USD</option>
             {currency.map(current => (
@@ -28,12 +28,11 @@ export const ExchangeInfo: React.FC<Props> = ({ currency, getRate }) => {
       <ul className='exchange__list'> 
         {currency.map(current => (
           <li className='exchange__item' key={current.r030}>
-            {`1 ${selectMainCurrency} to ${current.cc} ${getRate(selectMainCurrency, current.cc, currency)} `}
+            {`1 ${selectMainCurrency} to ${current.cc} = ${getRate(selectMainCurrency, current.cc, currency)} `}
           </li>
         ))}
       </ul>
     </div>
-    
     </>
   );
 }

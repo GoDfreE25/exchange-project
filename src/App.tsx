@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Navigation } from './components/Navigation/Navigation';
 import { getExchangeCourse } from './api/api';
 import './App.scss';
-//import { CurrencyCalculator } from './components/CurrencyCalculator/CurrencyCalculator';
+import { CurrencyCalculator } from './components/CurrencyCalculator/CurrencyCalculator';
 import { ExchangeInfo } from './components/ExchangeInfo/ExchangeInfo';
 import { Currency } from './type/Currency';
 
@@ -33,26 +35,25 @@ export const App: React.FC = () => {
   
   const currencyWithUah = [...currency, {
     cc: "UAH",
-  exchangedate: "01.06.2022",
-  r030: 0,
-  rate: 1,
-  txt: "Гривня",
+    exchangedate: "01.06.2022",
+    r030: 0,
+    rate: 1,
+    txt: "Гривня",
   }];
-
-  //console.log(getRate("EUR", "USD", currencyWithUah));
-  //console.table(currencyWithUah.map(el => [el.cc, 'UAH', getRate(el.cc, "UAH", currencyWithUah)]));
-  
 
   return (
     <div className="App">
-    {/* <CurrencyCalculator 
-      currency={currencyWithUah}
-      getRate={getRate}
-    /> */}
-    <ExchangeInfo
-      currency={currencyWithUah}
-      getRate={getRate}
-    />
+      <Navigation />
+        <Routes>
+          <Route path="/Rate" element={<ExchangeInfo
+          currency={currencyWithUah}
+          getRate={getRate}
+        />}/>
+          <Route path="/Calculator" element={<CurrencyCalculator 
+          currency={currencyWithUah}
+          getRate={getRate}
+        />}/>
+        </Routes>
     </div>
   );
 }

@@ -12,7 +12,7 @@
   background-color: #7f7777;
 
   &__title {
-    width: 600px;
+    width: 1000px;
     margin: 0 auto;
     padding: 25px;
 
@@ -23,14 +23,15 @@
 
     background-color: #7f7777;
       &-main {
-        font-size: 19px;
+        font-size: 21px;
+        color: #564c4c;
       }
 
       &-select {
         color: rgb(9, 9, 9);
-        font-size: 19px;
+        font-size: 21px;
 
-        background-color: transparent;
+        background-color: #564c4c;
 
         border-radius: 50px;
         border: none;
@@ -38,11 +39,16 @@
   }
 
   &__list {
+    width: 800px;
     list-style: none;
+
+    
   }
 
   &__item {
     padding: 5px;
     font-size: 19px;
+
+    border: 1px solid #000;
   }
 }
