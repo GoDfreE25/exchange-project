@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/GoDfreE25.github.io/exchange-project/static/css/main.4d3c7fe2.css",
+    "main.js": "/GoDfreE25.github.io/exchange-project/static/js/main.348d575e.js",
+    "index.html": "/GoDfreE25.github.io/exchange-project/index.html",
+    "main.4d3c7fe2.css.map": "/GoDfreE25.github.io/exchange-project/static/css/main.4d3c7fe2.css.map",
+    "main.348d575e.js.map": "/GoDfreE25.github.io/exchange-project/static/js/main.348d575e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4d3c7fe2.css",
+    "static/js/main.348d575e.js"
+  ]
+}
