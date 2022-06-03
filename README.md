@@ -1,6 +1,6 @@
 # Exchange website
 
-- [Exchange website]()
+- [Exchange website](https://godfree25.github.io/exchange-project/)
 
 ## Technologies:
 * React

@@ -15,22 +15,24 @@ export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
   };
 
   const parseInput = (input: string) => {
-    const [amount = '', baseValue = '', , currentValue = ''] = input.split(' ');
+    const [amount = '', baseValue = '', inn = '', currentValue = ''] = input.split(' ');
 
     const preperedAmount = Number(amount);
     const preperedBase = baseValue.split('').filter(str => str.toLocaleUpperCase() !== str.toLocaleLowerCase()).join('').toLocaleUpperCase();
     const preperedCurrent = currentValue.split('').filter(str => str.toLocaleUpperCase() !== str.toLocaleLowerCase()).join('').toLocaleUpperCase();
+    const preparedInn = inn.split('').filter(s => s.toUpperCase() !== s.toLowerCase()).join('').toUpperCase();
 
     const ValueValid = !isNaN(preperedAmount);
     const baseValid = preperedBase.length === 3;
     const currentValid = preperedCurrent.length === 3;
+    const isValidIn = preparedInn === 'IN'
     const preperedInput = `${preperedAmount} ${preperedBase} in ${preperedCurrent}`;
 
     let result;
     try {
       const exchangeResult = getRate(preperedBase, preperedCurrent, currency) * preperedAmount;
       result = {
-        isValid: baseValid && currentValid && ValueValid,
+        isValid: baseValid && currentValid && ValueValid && isValidIn,
         preperedInput,
         exchangeResult,
       }
@@ -45,6 +47,11 @@ export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
     return result;
   }
   const userInput = parseInput(mainCurrency);
+  console.log(parseInput(mainCurrency));
+
+  if (!mainCurrency) {
+    userInput.isValid = true;
+  }
 
   return (
 <>
@@ -54,9 +61,9 @@ export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
        In this input you can enter the text as “15 usd in uah” and get the result
       </h2>
       <span className='calculator'>{isFinite(userInput.exchangeResult) ? `You must imput like this: ${userInput.preperedInput}` :''}</span>
-      {userInput.isValid && 
+      {!userInput.isValid && 
         <span className='calculator__error'>
-      {isFinite(userInput.exchangeResult) ? '' : 'Write correct text'}</span>}
+      {userInput.isValid ? '' : 'Write correct text'}</span>}
       <input
           type="text"
           value={mainCurrency}
