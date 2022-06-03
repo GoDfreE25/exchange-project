@@ -47,7 +47,6 @@ export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
     return result;
   }
   const userInput = parseInput(mainCurrency);
-  console.log(parseInput(mainCurrency));
 
   if (!mainCurrency) {
     userInput.isValid = true;
@@ -60,10 +59,6 @@ export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
       <h2 className='calculator__title'>
        In this input you can enter the text as “15 usd in uah” and get the result
       </h2>
-      <span className='calculator'>{isFinite(userInput.exchangeResult) ? `You must imput like this: ${userInput.preperedInput}` :''}</span>
-      {!userInput.isValid && 
-        <span className='calculator__error'>
-      {userInput.isValid ? '' : 'Write correct text'}</span>}
       <input
           type="text"
           value={mainCurrency}
@@ -71,10 +66,18 @@ export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
           id="search-query"
           className="calculator__input"
           placeholder="Type the text"
-        />
-        <span className='calculator__exchange'>
-          {isFinite(userInput.exchangeResult) ? `Result is: ${userInput.exchangeResult}` :''}
+      />
+      <span className='calculator__exchange'>
+        {isFinite(userInput.exchangeResult) ? `Result is: ${userInput.exchangeResult}` :''}
+      </span>
+      <span className='calculator'>
+        {isFinite(userInput.exchangeResult) ? `You must imput like this: ${userInput.preperedInput}` :''}
+      </span>
+      {!userInput.isValid && 
+        <span className='calculator__error'>
+      {userInput.isValid ? '' : 'Write correct text'}
         </span>
+      } 
     </div>
   </div>
 </>

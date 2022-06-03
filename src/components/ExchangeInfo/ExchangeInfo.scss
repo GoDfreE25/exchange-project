@@ -9,7 +9,7 @@
   align-items: center;
   gap: 10px;
 
-  background-color: #7f7777;
+  background-color: gray;
 
   &__title {
     width: 1000px;
@@ -21,17 +21,17 @@
     align-items: center;
     gap: 15px;
 
-    background-color: #7f7777;
+    background-color: gray;
       &-main {
         font-size: 21px;
-        color: #564c4c;
+        color: black;
       }
 
       &-select {
         color: rgb(9, 9, 9);
-        font-size: 19px;
+        font-size: 20px;
 
-        background-color: #564c4c;
+        background-color: transparent;
 
         border-radius: 50px;
         border: none;
