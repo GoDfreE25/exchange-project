@@ -1,4 +1,4 @@
-export interface Currency {
+export type Currency  = {
   cc: string;
   exchangedate: string;
   r030: number;

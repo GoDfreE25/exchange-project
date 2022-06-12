@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import { Currency } from '../../type/Currency';
 import './CurrencyCalculator.scss';
+import { CurrencyProps } from './CurrencyProps';
 
-type Props = {
-  currency: Currency[];
-  getRate: (baseName: string, currentName: string, currency: Currency[]) => number;
-}
 
-export const CurrencyCalculator: React.FC<Props> = ({ currency, getRate }) => {
+export const CurrencyCalculator: React.FC<CurrencyProps> = ({ currency, getRate }) => {
   const [mainCurrency, setMainCurrency] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

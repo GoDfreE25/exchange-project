@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-import { Currency } from '../../type/Currency';
 import './ExchangeInfo.scss';
+import { ExchangeProps } from './ExchangeProps';
 
-type Props = {
-  currency: Currency[];
-  getRate: (baseName: string, currentName: string, currency: Currency[]) => number;
-}
-
-export const ExchangeInfo: React.FC<Props> = ({ currency, getRate }) => {
+export const ExchangeInfo: React.FC<ExchangeProps> = ({ currency, getRate }) => {
   const [selectMainCurrency, setSelectMainCurrency] = useState('USD');
 
   const changeHendlerMainCourse = (event: React.ChangeEvent<HTMLSelectElement>) => {

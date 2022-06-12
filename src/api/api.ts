@@ -1,4 +1,4 @@
-import { Currency } from "../type/Currency";
+import { Currency } from "../components/type/Currency";
 
 const BASE_URL = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchangenew?json";
 
